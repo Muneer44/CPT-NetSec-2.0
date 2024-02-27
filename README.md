@@ -27,7 +27,7 @@ _The topology diagram represents the simulated network configuration, provides a
 # Network Connectivity Map
 _The network connectivity map illustrates the connectivity and relationships between different devices in the network. The map shows the physical connections between the devices, including the interfaces, IP addresses, and subnet masks used for communication. It helps to understand the overall network layout and aids in troubleshooting and maintaining the network infrastructure._
 
-<img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/fbb5e9c8-6736-4614-927f-d92202411756" alt = "Network Connectivity diagram" width="800" height="500">
+<img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/fbb5e9c8-6736-4614-927f-d92202411756" alt = "Network Connectivity diagram" width="800" height="320">
 
 # DNS Server Entries
 
