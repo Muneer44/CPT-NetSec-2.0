@@ -1,4 +1,5 @@
-# Network-Security-2
+# CPT-NetSec-2.0: Resilient and Efficient Network Infrastructure
+This project delves into the details of setting up a simulated network infrastructure, focusing on seamless connectivity, security, and efficiency. The scope of this project encompasses a comprehensive range of components, including the configuration of Virtual Private Network (VPN) for secure communication, fine-tuning ASA firewall settings to bolster network security, and implementing network segmentation techniques for isolation of different network segments. Additionally, the project addresses NAT translations and access controls, allowing secure regulation of network traffic. 
 
 ## Table of Contents
 - 📍 [Network Topology](#network-topology)
@@ -6,12 +7,13 @@
 - 🏷 [DNS Server Entries](#dns-server-entries)
 
 - ⛓ [Security Controls](#vpn-configuration)
-  - ⛓ VPN Configuration
-  - ⚙ NAT Translations
-  - 🚪 VLAN Segmentation
+  - 🔐 VPN Configuration
+  - 🔐 ASA Firewall Controls
+  - 🔐 NAT Translations
+  - 🔐 VLAN Segmentation
   - 🔐 Access Lists
-  - 📿 Network Routes
-  - 🖇 Connectivity Tests
+  - 🔐 Network Routes
+  - 🔐 Connectivity Tests
 
 - 🛠 [Other Security Controls and Configurations ](#other-security-controls-and-configurations)
 - ✨ [Conclusion](#conclusion)
@@ -77,7 +79,7 @@ _After establihing an inital secure relationship, IPsec protocol suite is used t
   HQ(config)# sh crypto ipsec transform-set <TS-name> 
 ```
 
-# ASA Firewall
+# ASA Firewall Controls
 
 _Class maps and Policy maps enable fine-grained control over traffic handling and security policies within the ASA firewall. Class map is used to classify traffic based on criteria, and policy map is used to define actions to be taken on the classified traffic._
 
