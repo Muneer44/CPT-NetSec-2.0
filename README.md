@@ -1,7 +1,20 @@
 # Network-Security-2
 
 ## Table of Contents
+- 📍 [Network Topology](#network-topology)
+- 🗺 [Network Connectivity Map](#network-connectivity-map)
+- 🏷 [DNS Server Entries](#dns-server-entries)
 
+- ⛓ [Security Controls](#vpn-configuration)
+  - ⛓ VPN Configuration
+  - ⚙ NAT Translations
+  - 🚪 VLAN Segmentation
+  - 🔐 Access Lists
+  - 📿 Network Routes
+  - 🖇 Connectivity Tests
+
+- 🛠 [Other Security Controls and Configurations ](#other-security-controls-and-configurations)
+- ✨ [Conclusion](#conclusion)
   
 # Network Topology  
 _The topology diagram represents the simulated network configuration, provides an overview of the network devices and their interconnections._
@@ -14,7 +27,7 @@ _The network connectivity map illustrates the connectivity and relationships bet
 
 <img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/fbb5e9c8-6736-4614-927f-d92202411756" alt = "Network Connectivity diagram" width="800" height="500">
 
-# DNS Server
+# DNS Server Entries
 
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/69d9ede2-7656-4ef4-bef2-59725a1ec9b8)
 
@@ -33,11 +46,36 @@ The encryption algo, hash algo, authentication method, DH key exchange group, an
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/383e64ea-332b-4aa2-b35d-2a3ed57d47ab)
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/3959439b-b5c5-41e3-9424-b71afe750874)
 
+```
+# Configure IKE Parameters:
+  HQ(config)# config terminal
+  HQ(config)# crypto isakmp enable
+    HQ(config)# crypto isakmp policy 44
+    HQ(config)# authentication pre-share
+    HQ(config)# encryption aes 256
+    HQ(config)# group 5
+    HQ(config)# hash sha
+    HQ(config)# lifetime 86400
+
+  HQ(config)# crypto isakmp key <secret key> address <peer address>
+
+  HQ(config)# sh crypto isakmp policy
+
+```
+
 _After establihing an inital secure relationship, IPsec protocol suite is used to provide secure communication over the network._
 
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/3db20016-d08a-475e-81b7-02d4b04db8f9)
 
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/600215b7-4d2f-45ea-a876-8865d0bc7904)
+
+```
+# IPsec Parameters:
+  HQ(config)# crypto ipsec transform-set <TS-name> <Encryption algorithm>
+  HQ(cfg-crypto-trans)# mode tunnel
+
+  HQ(config)# sh crypto ipsec transform-set <TS-name> 
+```
 
 # ASA Firewall
 
@@ -45,10 +83,28 @@ _Class maps and Policy maps enable fine-grained control over traffic handling an
 
 <img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/b84cc303-abe7-48ab-80c3-12468a4cb92b" alt = "Network Topology Diagram" width="800" height="680">
 
+```
+# Class Map:
+  ASA-FW(config)# class-map <name>
+  ASA-FW(config-cmap)# match <criteria>
+
+# Policy Map:
+  ASA-FW(config)# policy-map <name>
+  ASA-FW(config-pmap)# class <c-name>
+  ASA-FW(config-pmap-c)# inspect <protocols>
+```
+
 # NAT Translations
 _Network Address Translation (NAT) enhances security by acting as a form of firewall. As the internal IP addresses are hiden behind a single IP address, external entities cannot directly initiate connection to devices within the private network. This obscurity adds a layer of security by reducing visibility of internal network structure._
 
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/a28ee053-db68-4ced-a149-9b0a7fe7785d)
+
+```
+# NAT Config
+  HQ(config)# ip nat inside source list 101 interface Serial0/1/0 overload
+  HQ(config)# ip nat inside source static tcp 192.168.3.41 80 9.9.9.9 80
+
+```
 
 # VLAN Segmentation
 
@@ -64,14 +120,28 @@ _VLANs reduce the scope of potential security threats by segmenting a physical n
 
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/01eb2150-d28c-4a31-9d48-09b3eaeec3e2)
 
-# Network Route
+```
+# Create Access Control List
+    Branch(config)# ip access-list extended <ACL name>
+    Branch(config-ext-nacl)# deny <protocl> <source ip> <source wildcard mask> <destination ip> <destination wildcard mask> eq 22  # Keywords: 'host' and 'any'  
+
+# Apply ACL
+    Branch(config)# int <interface>  
+    Branch(config-if)# ip access-group <ACL name> <in/ out> 
+    
+Branch(config-ext-nacl)# do sh ip access-lists
+
+# Best practice: choose the device closest to the source.
+```
+
+# Network Routes
 <img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/bcd56ea0-a953-453f-81ab-b276a589fa8c" alt = "Network Topology Diagram" width="700" height="400">
 
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/4bdd4e0c-a12e-4c74-9bbd-89176d7d3720)
 
 ![image](https://github.com/Muneer44/Network-Security-2/assets/117259069/d8a2a624-cd8c-440a-8084-67dd4ebe8710)
 
-# Connectivity tests
+# Connectivity Tests
 
 ### Branch PC to HQ-FTP Server:
 <img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/b40d96cb-9d86-4558-8064-459c970ae202" alt = "Network Topology Diagram" width="620" height="500">
@@ -85,4 +155,20 @@ _VLANs reduce the scope of potential security threats by segmenting a physical n
 ### Branch PC to HQ Client PC:
 <img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/c01b0a3b-ad22-46ca-85e3-65e94464cd03" alt = "Network Topology Diagram" width="620" height="500">
 
+# Other Security Controls and Configurations 
+__Visit [here](https://github.com/Muneer44/CPT-NetSec) for additional controls and configrations such as:__
+  - 🗝 Port Access Security
+  - 🗝 Access Control Lists
+  - 🗝 AAA Authentication
+  - 🗝 Other Industry Best Practices
+  - 🔗 VLAN segmentation and Trunk Creation
+  - 🔗 Router On Stick Configuration
+  - 🔗 OSPF implementation
+  - 🔗 DR and BDR Assignments
+  - 🔗 Stubby Area Creation
+ 
+# ✨Conclusion
+Through this project, I try to emphasize the importance of securing network infrastructure, protecting sensitive information, and optimizing network performance. By implementing robust security controls and utilizing advanced networking configurations the organizations can mitigate security risks and enhance the overall network resilience.
 
+**All together, this project has enhanced my knowledge of network security and gave me valuable insights of real-world implications. I continue to strive to educate myself further each day, and this is just one of the many practical projects I've worked on.
+You can view my portfolio [here](https://github.com/Muneer44/)**  
