@@ -158,7 +158,7 @@ Branch(config-ext-nacl)# do sh ip access-lists
 <img src="https://github.com/Muneer44/Network-Security-2/assets/117259069/c01b0a3b-ad22-46ca-85e3-65e94464cd03" alt = "Network Topology Diagram" width="620" height="500">
 
 # Other Security Controls and Configurations 
-__Visit [here](https://github.com/Muneer44/CPT-NetSec) for additional controls and configrations such as:__
+__Visit the link [here](https://github.com/Muneer44/CPT-NetSec?tab=readme-ov-file#-network-security-controls) for additional network controls and configrations such as:__
   - 🗝 Port Access Security
   - 🗝 Access Control Lists
   - 🗝 AAA Authentication
