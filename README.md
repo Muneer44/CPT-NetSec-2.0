@@ -1,4 +1,4 @@
-# CPT-NetSec-2.0: Resilient and Efficient Network Infrastructure
+# CPT-NetSec-2.0: Showcasing Robust Network Security using Cisco Packet Tracer
 This project delves into the details of setting up a simulated network infrastructure, focusing on seamless connectivity, security, and efficiency. The scope of this project encompasses a comprehensive range of components, including the configuration of Virtual Private Network (VPN) for secure communication, fine-tuning ASA firewall settings to bolster network security, and implementing network segmentation techniques for isolation of different network segments. Additionally, the project addresses NAT translations and access controls, allowing secure regulation of network traffic. 
 
 ## Table of Contents
